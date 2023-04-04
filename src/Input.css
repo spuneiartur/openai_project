@@ -37,14 +37,7 @@
     transform: rotate(360deg);
 }
 
-img {
+.input-area img {
     width: 70px;
     height: 70px;
-}
-
-.input-area i{
-    color: black;
-    margin: 0.5em;
-    font-size: 2em;
-    cursor: pointer;
 }

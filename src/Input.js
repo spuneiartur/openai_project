@@ -1,3 +1,6 @@
+import buttonIcon from "./img/buttonIcon.png";
+
+
 function Input({
     //handleChange,
      handleClick}) {
@@ -13,8 +16,8 @@ function Input({
 
             </input>
             <button type="submit" onClick ={handleClick}>
-                <i className="click"></i>
-                <img src="button.png" alt="buttonpng" border="0"></img>
+               
+                <img src={buttonIcon} alt="button.png" border="0"></img>
             </button>
         </form>
     </div>
