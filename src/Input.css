@@ -1,0 +1,50 @@
+.input-area{
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 5px;
+    background-color: #1B1B1B;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.input-container{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.5em;
+}
+
+.input-area input{
+    width:  90%;
+    background-color: #1B1B1B;
+    border: whitesmoke;
+    color:#727272;
+    font-size: 1em;
+    padding: 1em;
+    border-radius: 5px;
+}
+
+.input-area button{
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    transition: transofrm 0.7s ease-in-out;
+}
+
+.input-area button:hover{
+    transform: rotate(360deg);
+}
+
+img {
+    width: 70px;
+    height: 70px;
+}
+
+.input-area i{
+    color: black;
+    margin: 0.5em;
+    font-size: 2em;
+    cursor: pointer;
+}
