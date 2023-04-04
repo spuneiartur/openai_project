@@ -1,6 +1,6 @@
-import logo from "./logo.svg";
-import "./App.css";
-
+import logo from './logo.svg';
+import './App.css';
+import Response from './Response';
 function App() {
   return (
     <div className="App">
@@ -15,6 +15,7 @@ function App() {
         >
           Learn React
         </a>
+        <Response />
       </header>
     </div>
   );
