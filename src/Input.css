@@ -1,4 +1,8 @@
-.input-area{
+.input-area {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
     width: 97%;
     padding-top: 10px;
     padding-bottom: 2.5px;
@@ -10,7 +14,7 @@
     margin-right: 25px;
 }
 
-.input-container{
+.input-container {
     align-items: center;
     display: flex;
     width: auto;
@@ -18,17 +22,17 @@
     margin-bottom: 0.2em;
 }
 
-.input-area input{
-    width: 93%  ;
-    background-color: #1B1B1B;
+.input-area input {
+    width: 93%;
+    background-color: #2E2E2E;
     border: whitesmoke;
-    color:#727272;
+    color: #727272;
     font-size: 0.7em;
     padding: 0.7em;
     border-radius: 15px;
 }
 
-.input-area button{
+.input-area button {
     border: none;
     cursor: pointer;
     appearance: none;
@@ -36,7 +40,7 @@
     transition: transofrm 0.7s ease-in-out;
 }
 
-.input-area button:hover{
+.input-area button:hover {
     transform: rotate(360deg);
 }
 
