@@ -1,6 +1,5 @@
 import buttonIcon from "./img/buttonIcon.png";
 
-
 function Input({
     //handleChange,
      handleClick}) {

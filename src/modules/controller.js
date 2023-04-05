@@ -1,5 +1,7 @@
 import OPENAI_API_KEY from './env';
 
+
+
 class Controller {
   configuration = null;
   openai = null;
@@ -23,6 +25,20 @@ class Controller {
       temperature: 0,
     });
     console.log(response.data.choices[0].text);
+  }
+
+  validateInput(myInput, previousWords, letters) {
+    //eroare sa fie doar un cuvant " "
+    if(myInput.includes(' ')){
+      throw new Error("You can't enter more than one word. You lost!");
+    }
+    if(myInput.slice(0,2)!== letters){
+      throw new Error(`The word does not start with ${letters}. You lost`);
+    }
+    if(previousWords.includes(myInput)){
+      throw new Error('The words are the same. You lost');
+    }
+  
   }
 }
 export default new Controller();
