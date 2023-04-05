@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import Response from './Response';
+import controller from './modules/controller';
+
 function App() {
   return (
     <div className="App">
