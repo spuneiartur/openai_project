@@ -5,8 +5,9 @@ function Header() {
             <div className ="header__logo--container">
                 <img src={logoCrast} alt="logo-no-backgroud.png" border="0"></img>
             </div>
-            {/* <h1>C.R.A.S.T. zone</h1>
-            <p>Let's play some FAZAN!</p> */}
+            <div className="header__writing--container">
+            <h1>Let's play some FAZAN!</h1>
+            </div>
         </div>
     )
 }
