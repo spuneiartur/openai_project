@@ -18,12 +18,13 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          
         </a>
         
       </header>
       <ChatHistory>
           
-      </ChatHistory>
+      </ChatHistory>  
     </div>
   );
 }

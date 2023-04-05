@@ -5,7 +5,7 @@ import "./ChatHistory.css";
 
 function ChatHistory() {
   return (
-    <div className="ChatHistory">
+    <div className="ChatHistory-body">
         
     </div>
   );
