@@ -1,10 +1,14 @@
 import logo from "./logo.svg";
 import "./App.css";
+import ChatHistory from "./ChatHistory";
+import "./ChatHistory.css";
+
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        
         <img src={logo} className="App-logo" alt="logo" />
         <p>C.R.A.S.T. Hello World</p>
         <a
@@ -14,8 +18,13 @@ function App() {
           rel="noopener noreferrer"
         >
           Learn React
+          
         </a>
+        
       </header>
+      <ChatHistory>
+          
+      </ChatHistory>  
     </div>
   );
 }
