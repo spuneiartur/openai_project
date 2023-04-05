@@ -2,14 +2,18 @@
 import './Response.css';
 import userIcon from './img/user_icon.png';
 import aiIcon from './img/ai_icon.png';
-function Response(message) {
+function Response({ type }) {
   return (
-    <div className="response__container">
+    <div
+      className={`response__container ${
+        type == 'user' ? 'response__container--user' : 'response__container--ai'
+      }`}
+    >
       <div className="response__icon">
-        <img src={'user' == 'user' ? userIcon : aiIcon}></img>
+        <img src={type == 'user' ? userIcon : aiIcon}></img>
       </div>
       <div className="response__content">
-        <p>Message</p>
+        <p>Hello world!</p>
       </div>
     </div>
   );
