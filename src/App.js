@@ -1,5 +1,7 @@
 import logo from "./logo.svg";
 import "./App.css";
+import Input from "./Input";
+import "./Input.css";
 import ChatHistory from "./ChatHistory";
 import "./ChatHistory.css";
 
@@ -11,6 +13,7 @@ function App() {
         
         <img src={logo} className="App-logo" alt="logo" />
         <p>C.R.A.S.T. Hello World</p>
+        <Input></Input>
         <a
           className="App-link"
           href="https://reactjs.org"
@@ -20,7 +23,6 @@ function App() {
           Learn React
           
         </a>
-        
       </header>
       <ChatHistory>
           
