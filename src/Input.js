@@ -1,5 +1,6 @@
 import buttonIcon from './img/buttonIcon.png';
 
+
 function Input({ inputHandlerSubmit }) {
   return (
     <div className="input-area">
@@ -22,6 +23,7 @@ function Input({ inputHandlerSubmit }) {
           <img src={buttonIcon} alt="button.png" border="0"></img>
         </button>
       </form>
+
     </div>
   );
 }
