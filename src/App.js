@@ -33,10 +33,10 @@ function App() {
 
   return (
     <div className="App">
-       <header className="App-header" style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+      
       <button onClick={handleShowError}>Show Error</button>
       {displayError && <ErrorButton />}
-      </header>
+      
       <Header />
       
       <ErrorButton />
