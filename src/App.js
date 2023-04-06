@@ -1,6 +1,5 @@
 import ErrorButton from './ErrorButton';
 import Header from './Header';
-import logo from './logo.svg';
 import './App.css';
 import Response from './Response';
 import controller from './modules/controller';
