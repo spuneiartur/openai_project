@@ -7,15 +7,27 @@ import ChatHistory from './ChatHistory';
 import './ChatHistory.css';
 
 function App() {
-  // const myInput = 'mere bune';
-  // const previous = ['pere', 'mere', 'repede'];
-  // const letters = myInput.slice(-2);
+  //  const myInput = 'mere';
+  //  const previous = ['pere', 'mere', 'repede'];
+  //  const letters = myInput.slice(-2);
   // try {
   //   controller.validateInput(myInput, previous, letters);
   //   console.log('Corect!');
   // } catch (err) {
   //   console.error(err.message);
   // }
+    const myInput = 'masina';
+    controller.settingOpenAI_API();
+    try {
+      const prompt = `Te rog sa raspunzi cu un singur cuvant care sa inceapa cu literele: ${myInput.slice(-2)}`;
+      controller.getResponse(prompt);
+     
+    } catch (error) {
+      console.error(error);
+    }
+ 
+    
+
 
   function inputHandlerSubmit(value) {
     console.log(value);

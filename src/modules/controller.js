@@ -25,7 +25,7 @@ class Controller {
     const response = await this.openai.createCompletion({
       model: 'text-davinci-003',
       prompt: prompt,
-      max_tokens: 50,
+      max_tokens: 30,
       temperature: 0,
     });
     console.log(response.data.choices[0].text);
