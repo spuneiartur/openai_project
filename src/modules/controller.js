@@ -1,13 +1,49 @@
 import OPENAI_API_KEY from './env';
 
-
-
 class Controller {
+  letters = null;
   configuration = null;
   openai = null;
   usedWordsArray = [];
   chatHistoryArray = [];
   ///////////////////////////////////////////////////
+  initApplication() {
+    this.settingOpenAI_API();
+    this.setLetters('ar');
+  }
+
+  getResponseMessage(response, type = 'user', dataLength, setDataLength) {
+    // validateInput()
+    try {
+      // display message in chat
+      // save response
+      if (response.trim() === '') {
+        return;
+      }
+      this.chatHistoryArray.push({ type: type, text: response });
+
+      // validate input
+      //this.validateInput(response);
+      // if ok save input
+      this.saveInput(response, type);
+
+      // Generate next letters
+      this.setLetters(response.slice(-2));
+
+      // send prompt to openaAI modules
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  setLetters(value) {
+    console.log(value);
+    this.letters = value;
+  }
+
+  saveInput(response, type) {
+    this.usedWordsArray.push(response.trim());
+  }
 
   settingOpenAI_API() {
     const { Configuration, OpenAIApi } = require('openai');
@@ -29,20 +65,20 @@ class Controller {
       temperature: 0,
     });
     console.log(response.data.choices[0].text);
+    return response.data.choices[0].text;
   }
 
-  validateInput(myInput, previousWords, letters) {
+  validateInput(myInput) {
     //eroare sa fie doar un cuvant " "
-    if(myInput.includes(' ')){
+    if (myInput.includes(' ')) {
       throw new Error("You can't enter more than one word. You lost!");
     }
-    if(myInput.slice(0,2)!== letters){
-      throw new Error(`The word does not start with ${letters}. You lost`);
+    if (myInput.slice(0, 2) !== this.letters) {
+      throw new Error(`The word does not start with ${this.letters}. You lost`);
     }
-    if(previousWords.includes(myInput)){
+    if (this.usedWordsArray.includes(myInput)) {
       throw new Error('The words are the same. You lost');
     }
-  
   }
 }
 export default new Controller();
