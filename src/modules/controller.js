@@ -32,6 +32,7 @@ class Controller {
   }
 
   validateInput(myInput, previousWords, letters) {
+    
     //eroare sa fie doar un cuvant " "
     if(myInput.includes(' ')){
       throw new Error("You can't enter more than one word. You lost!");
