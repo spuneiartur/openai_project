@@ -4,6 +4,7 @@ class Controller {
   letters = null;
   configuration = null;
   openai = null;
+  loading = false;
   usedWordsArray = [];
   chatHistoryArray = [];
   ///////////////////////////////////////////////////
@@ -12,14 +13,14 @@ class Controller {
     this.setLetters('ar');
   }
 
-  extractMessage(response, type) {
+  extractMessage(response, type, setDataLength) {
     // display message in chat
     // save response
     if (response.trim() === '') {
       return;
     }
     this.chatHistoryArray.push({ type: type, text: response });
-
+    setDataLength(this.chatHistoryArray.length);
     // validate input
     //this.validateInput(response);
     // if ok save input
@@ -27,13 +28,14 @@ class Controller {
 
     // Generate next letters
     this.setLetters(response.slice(-2));
-    console.log(response);
   }
-  getResponseFromUser(response) {
+  getResponseFromUser(response, setDataLength) {
     try {
-      this.extractMessage(response, 'user');
+      this.extractMessage(response, 'user', setDataLength);
       // send prompt to openaAI modules
-      this.getResponseFromOpenai(response);
+      this.loading = true;
+      setDataLength(this.chatHistoryArray.length);
+      this.getResponseFromOpenai(response, setDataLength);
     } catch (err) {
       throw err;
     }
@@ -47,13 +49,15 @@ class Controller {
     this.usedWordsArray.push(response.trim());
   }
 
-  async getResponseFromOpenai(userResponse) {
+  async getResponseFromOpenai(userResponse, setDataLength) {
     try {
       const openaiResponse = await this.getResponse(userResponse);
       console.log(openaiResponse);
-      this.extractMessage(openaiResponse, 'ai');
+      this.extractMessage(openaiResponse, 'ai', setDataLength);
     } catch (err) {
       throw err;
+    } finally {
+      this.loading = false;
     }
   }
 
@@ -74,7 +78,7 @@ class Controller {
       const response = await this.openai.createCompletion({
         model: 'text-davinci-003',
         prompt: prompt,
-        max_tokens: 50,
+        max_tokens: 30,
         temperature: 0,
       });
       console.log(response);
