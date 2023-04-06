@@ -31,18 +31,18 @@ function App() {
   //   console.error(error);
   // }
 
-  const myInput = "asfgasdf";
+  const myInput = "fasdfsa";
   const letters = myInput.slice(-2);
   const greseala = "XXX";
   controller.settingOpenAI_API();
   try {
     const prompt = `
       Ne vom juca un joc cu reguli foarte stricte. Sa le urmaresti si le recitesti la fiecare mesaj.
+      Te rog sa nu pui punct la final de propozitie niciodata.
       Nu ai voie sa trimiti mai mult de un cuvant pe mesaj.
       Verifica dex online pentru cuvinte.
       Daca cuvantul ${myInput} exista in dex online, spune-mi un cuvant simplu care sa inceapa cu literele ${letters}.
       Daca ${myInput} nu exista in dex online, spune-mi ${greseala}
-      De asemenea, te rog sa nu pui punct la final de propozitie.
     `
     controller.getResponse(prompt);
   } catch(error) {
