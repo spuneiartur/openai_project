@@ -25,9 +25,6 @@ function App() {
     } catch (error) {
       console.error(error);
     }
- 
-    
-
 
   function inputHandlerSubmit(value) {
     console.log(value);
