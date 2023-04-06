@@ -6,6 +6,7 @@
 --for icons(if needed): #808080;
 --for title: #FFFFFF;
 --for subtitle: #727272;
+-- text: #a9a8a8;
 
 # App
 

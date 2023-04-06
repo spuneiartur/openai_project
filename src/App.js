@@ -15,9 +15,17 @@ function App() {
   }catch(err){
     console.error(err.message);
   }
+
+
+
+
+  function inputHandlerSubmit(value) {
+    console.log(value);
+  }
+
   return (
     <div className="App">
-      <ChatHistory></ChatHistory>
+      <ChatHistory inputHandlerSubmit={inputHandlerSubmit}></ChatHistory>
     </div>
   );
 }

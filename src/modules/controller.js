@@ -5,6 +5,10 @@ import OPENAI_API_KEY from './env';
 class Controller {
   configuration = null;
   openai = null;
+  usedWordsArray = [];
+  chatHistoryArray = [];
+  ///////////////////////////////////////////////////
+
   settingOpenAI_API() {
     const { Configuration, OpenAIApi } = require('openai');
     this.configuration = new Configuration({
