@@ -23,8 +23,7 @@ function App() {
   // }
 
   function inputHandlerSubmit(value) {
-    controller.getResponseMessage(value, 'user');
-    setDataLength(controller.chatHistoryArray.length);
+    controller.getResponseFromUser(value, setDataLength);
   }
 
   return (
@@ -34,6 +33,7 @@ function App() {
       <ChatHistory
         inputHandlerSubmit={inputHandlerSubmit}
         chatHistoryArray={controller.chatHistoryArray}
+        loading={controller.loading}
       ></ChatHistory>
     </div>
   );
