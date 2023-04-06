@@ -1,5 +1,7 @@
 import ErrorButton from './ErrorButton';
 import Header from './Header';
+import React from 'react';
+import { useState } from 'react';
 import './App.css';
 import Response from './Response';
 import controller from './modules/controller';
@@ -7,6 +9,9 @@ import ChatHistory from './ChatHistory';
 import './ChatHistory.css';
 
 function App() {
+  const [dataLength, setDataLength] = useState(0);
+  controller.initApplication();
+
   // const myInput = 'mere bune';
   // const previous = ['pere', 'mere', 'repede'];
   // const letters = myInput.slice(-2);
@@ -18,14 +23,18 @@ function App() {
   // }
 
   function inputHandlerSubmit(value) {
-    console.log(value);
+    controller.getResponseMessage(value, 'user');
+    setDataLength(controller.chatHistoryArray.length);
   }
 
   return (
     <div className="App">
       <Header />
       <ErrorButton />
-      <ChatHistory inputHandlerSubmit={inputHandlerSubmit}></ChatHistory>
+      <ChatHistory
+        inputHandlerSubmit={inputHandlerSubmit}
+        chatHistoryArray={controller.chatHistoryArray}
+      ></ChatHistory>
     </div>
   );
 }
