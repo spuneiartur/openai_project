@@ -6,6 +6,7 @@ import Response from './Response';
 import inputHandler from './modules/views/userInputView';
 
 function ChatHistory({ inputHandlerSubmit, chatHistoryArray }) {
+  function updateState() {}
   return (
     <div className="ChatHistory-body">
       {chatHistoryArray.map((obj, index) => (

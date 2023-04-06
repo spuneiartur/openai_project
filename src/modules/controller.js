@@ -49,7 +49,7 @@ class Controller {
 
   async getResponseFromOpenai(userResponse) {
     try {
-      const openaiResponse = await this.getResponse();
+      const openaiResponse = await this.getResponse(userResponse);
       console.log(openaiResponse);
       this.extractMessage(openaiResponse, 'ai');
     } catch (err) {
