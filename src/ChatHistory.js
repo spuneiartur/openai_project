@@ -1,3 +1,4 @@
+
 import react from 'react';
 import './ChatHistory.css';
 import Input from './Input';
@@ -20,3 +21,4 @@ function ChatHistory({ inputHandlerSubmit }) {
 }
 
 export default ChatHistory;
+
