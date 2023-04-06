@@ -31,6 +31,12 @@ function App() {
   //   console.error(err.message);
   // }
 
+
+  function inputHandlerSubmit(value) {
+    controller.getResponseFromUser(value, setDataLength);
+  }
+
+
   return (
     <div className="App">
       
@@ -44,6 +50,7 @@ function App() {
       
         inputHandlerSubmit={inputHandlerSubmit}
         chatHistoryArray={controller.chatHistoryArray}
+        loading={controller.loading}
       ></ChatHistory>
        
     </div>
