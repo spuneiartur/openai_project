@@ -7,55 +7,49 @@ import ChatHistory from './ChatHistory';
 import './ChatHistory.css';
 import React, { useState } from 'react';
 
-function inputHandlerSubmit(value) {
-  controller.getResponseMessage(value, 'user');
-  //setDataLength(controller.chatHistoryArray.length);
-}
-
 function App() {
-  //const [dataLength, setDataLength] = useState(0);
-  //controller.initApplication();
-
+  controller.initApplication();
+  const [dataLength, setDataLength] = useState(0);
   const [displayError, setShowError] = useState(false);
 
   const handleShowError = () => {
     setShowError(true);
-  }
-  // const myInput = 'mere bune';
-  // const previous = ['pere', 'mere', 'repede'];
-  // const letters = myInput.slice(-2);
-  // try {
-  //   controller.validateInput(myInput, previous, letters);
-  //   console.log('Corect!');
-  // } catch (err) {
-  //   console.error(err.message);
-  // }
-
+  };
 
   function inputHandlerSubmit(value) {
     controller.getResponseFromUser(value, setDataLength);
   }
 
-
   return (
     <div className="App">
-      
+      <Header />
       <button onClick={handleShowError}>Show Error</button>
       {displayError && <ErrorButton />}
-      
-      <Header />
-      
       <ErrorButton />
       <ChatHistory
-      
         inputHandlerSubmit={inputHandlerSubmit}
         chatHistoryArray={controller.chatHistoryArray}
         loading={controller.loading}
       ></ChatHistory>
-       
     </div>
-    
   );
-  
 }
 export default App;
+
+// const myInput = "fasdfsa";
+//   const letters = myInput.slice(-2);
+//   const greseala = "XXX";
+//   controller.settingOpenAI_API();
+//   try {
+//     const prompt = `
+//       Ne vom juca un joc cu reguli foarte stricte. Sa le urmaresti si le recitesti la fiecare mesaj.
+//       Te rog sa nu pui punct la final de propozitie niciodata.
+//       Nu ai voie sa trimiti mai mult de un cuvant pe mesaj.
+//       Verifica dex online pentru cuvinte.
+//       Daca cuvantul ${myInput} exista in dex online, spune-mi un cuvant simplu care sa inceapa cu literele ${letters}.
+//       Daca ${myInput} nu exista in dex online, spune-mi ${greseala}
+//     `
+//     controller.getResponse(prompt);
+//   } catch(error) {
+//     console.errore(error);
+//   }
