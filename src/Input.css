@@ -1,0 +1,50 @@
+.input-area {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1rem;
+    width: 97%;
+    padding-top: 10px;
+    padding-bottom: 2.5px;
+    background-color: #1B1B1B;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-left: 25px;
+    margin-right: 25px;
+}
+
+.input-container {
+    align-items: center;
+    display: flex;
+    width: auto;
+    justify-content: center;
+    margin-bottom: 0.2em;
+}
+
+.input-area input {
+    width: 93%;
+    background-color: #2E2E2E;
+    border: whitesmoke;
+    color: #a9a8a8;
+    font-size: 18px;
+    padding: 0.7em;
+    border-radius: 15px;
+}
+
+.input-area button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+    transition: transofrm 0.7s ease-in-out;
+}
+
+.input-area button:hover {
+    transform: rotate(360deg);
+}
+
+.input-area img {
+    width: 50px;
+    height: 35px;
+}
