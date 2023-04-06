@@ -12,37 +12,49 @@ class Controller {
     this.setLetters('ar');
   }
 
-  getResponseMessage(response, type = 'user', dataLength, setDataLength) {
-    // validateInput()
+  extractMessage(response, type) {
+    // display message in chat
+    // save response
+    if (response.trim() === '') {
+      return;
+    }
+    this.chatHistoryArray.push({ type: type, text: response });
+
+    // validate input
+    //this.validateInput(response);
+    // if ok save input
+    this.saveInput(response, type);
+
+    // Generate next letters
+    this.setLetters(response.slice(-2));
+    console.log(response);
+  }
+  getResponseFromUser(response) {
     try {
-      // display message in chat
-      // save response
-      if (response.trim() === '') {
-        return;
-      }
-      this.chatHistoryArray.push({ type: type, text: response });
-
-      // validate input
-      //this.validateInput(response);
-      // if ok save input
-      this.saveInput(response, type);
-
-      // Generate next letters
-      this.setLetters(response.slice(-2));
-
+      this.extractMessage(response, 'user');
       // send prompt to openaAI modules
+      this.getResponseFromOpenai(response);
     } catch (err) {
       throw err;
     }
   }
 
   setLetters(value) {
-    console.log(value);
     this.letters = value;
   }
 
   saveInput(response, type) {
     this.usedWordsArray.push(response.trim());
+  }
+
+  async getResponseFromOpenai(userResponse) {
+    try {
+      const openaiResponse = await this.getResponse();
+      console.log(openaiResponse);
+      this.extractMessage(openaiResponse, 'ai');
+    } catch (err) {
+      throw err;
+    }
   }
 
   settingOpenAI_API() {
@@ -58,14 +70,19 @@ class Controller {
   }
 
   async getResponse(prompt) {
-    const response = await this.openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt: prompt,
-      max_tokens: 50,
-      temperature: 0,
-    });
-    console.log(response.data.choices[0].text);
-    return response.data.choices[0].text;
+    try {
+      const response = await this.openai.createCompletion({
+        model: 'text-davinci-003',
+        prompt: prompt,
+        max_tokens: 50,
+        temperature: 0,
+      });
+      console.log(response);
+      console.log(response.data.choices[0].text);
+      return response.data.choices[0].text;
+    } catch (err) {
+      throw err;
+    }
   }
 
   validateInput(myInput) {

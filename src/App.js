@@ -23,7 +23,7 @@ function App() {
   // }
 
   function inputHandlerSubmit(value) {
-    controller.getResponseMessage(value, 'user');
+    controller.getResponseFromUser(value);
     setDataLength(controller.chatHistoryArray.length);
   }
 
