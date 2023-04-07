@@ -8,34 +8,62 @@ class Controller {
   usedWordsArray = [];
   chatHistoryArray = [];
   ///////////////////////////////////////////////////
-  initApplication() {
+
+  initApplication(
+    setDataLength,
+    text = 'Bine ati venit la jocul nostru de fazan! Introduceti un cuvant pentru a incepe!'
+  ) {
+    this.usedWordsArray = [];
+    this.chatHistoryArray = [];
     this.settingOpenAI_API();
-    this.setLetters('ar');
-  }
+    this.chatHistoryArray.push({
+      type: 'ai',
+      text: text,
+    });
 
-  extractMessage(response, type, setDataLength) {
-    // display message in chat
-    // save response
-    if (response.trim() === '') {
-      return;
-    }
-    this.chatHistoryArray.push({ type: type, text: response });
     setDataLength(this.chatHistoryArray.length);
-    // validate input
-    //this.validateInput(response);
-    // if ok save input
-    this.saveInput(response, type);
-
-    // Generate next letters
-    this.setLetters(response.slice(-2));
   }
+
+  extractMessage(response, type, setDataLength, user = 'Player') {
+    try {
+      // display message in chat
+      // save response
+      if (response.trim() === '') {
+        return;
+      }
+      this.chatHistoryArray.push({ type: type, text: response });
+      setDataLength(this.chatHistoryArray.length);
+      if (this.chatHistoryArray.length <= 2) {
+        this.letters = response.slice(0, 2);
+      }
+      // validate input
+
+      this.validateInput(response, user);
+
+      // if ok save input
+      this.saveInput(response, type);
+
+      // Generate next letters
+      //this.setLetters(response.slice(-2));
+
+      this.letters = response.slice(-2);
+    } catch (err) {
+      throw err;
+    }
+  }
+
   getResponseFromUser(response, setDataLength) {
     try {
-      this.extractMessage(response, 'user', setDataLength);
+      response = this.processResponse(response);
+      this.extractMessage(response, 'user', setDataLength, 'Player');
       // send prompt to openaAI modules
       this.loading = true;
       setDataLength(this.chatHistoryArray.length);
-      this.getResponseFromOpenai(response, setDataLength);
+      try {
+        this.getResponseFromOpenai(response, setDataLength);
+      } catch (err) {
+        throw err;
+      }
     } catch (err) {
       throw err;
     }
@@ -49,13 +77,49 @@ class Controller {
     this.usedWordsArray.push(response.trim());
   }
 
+  processResponse(response) {
+    return response
+      .replaceAll('.', '')
+      .replaceAll(',', '')
+      .trim()
+      .toLowerCase();
+  }
+
   async getResponseFromOpenai(userResponse, setDataLength) {
     try {
-      const openaiResponse = await this.getResponse(userResponse);
-      console.log(openaiResponse);
-      this.extractMessage(openaiResponse, 'ai', setDataLength);
+      const greseala = 'XXX';
+      const prompt = `
+      Ne vom juca un joc cu reguli foarte stricte. 
+      Nu ai voie sa trimiti mai mult de un cuvant pe mesaj.
+      ${
+        this.usedWordsArray.length < 1
+          ? ''
+          : `Nu ai voie sa repeti aceste cuvinte:  ${this.usedWordsArray
+              .toString()
+              .replaceAll(',', '  ')}`
+      }
+      Verifica dex online pentru cuvinte.
+      Daca cuvantul ${userResponse} exista in dex online, spune-mi un cuvant simplu care sa inceapa cu literele '${
+        this.letters
+      }'
+      Daca ${userResponse} nu exista in dex online spune-mi ${greseala}`;
+      console.log(prompt);
+      let openaiResponse;
+      try {
+        openaiResponse = await this.getResponse(prompt);
+      } catch (err) {
+        throw err;
+      }
+
+      openaiResponse = this.processResponse(openaiResponse);
+      if (openaiResponse.trim() == 'XXX' || openaiResponse.trim() === 'xxx')
+        throw new Error(`${userResponse} is not a valid word 💩`);
+      this.extractMessage(openaiResponse, 'ai', setDataLength, 'OpenAI');
     } catch (err) {
-      throw err;
+      this.initApplication(
+        setDataLength,
+        err.message + '. Paste a word to restart game 😁'
+      );
     } finally {
       this.loading = false;
     }
@@ -78,27 +142,33 @@ class Controller {
       const response = await this.openai.createCompletion({
         model: 'text-davinci-003',
         prompt: prompt,
-        max_tokens: 30,
+        max_tokens: 10,
         temperature: 0,
       });
-      console.log(response);
-      console.log(response.data.choices[0].text);
+      //console.log(response);
+      //console.log(response.data.choices[0].text);
       return response.data.choices[0].text;
     } catch (err) {
       throw err;
     }
   }
 
-  validateInput(myInput) {
-    //eroare sa fie doar un cuvant " "
-    if (myInput.includes(' ')) {
-      throw new Error("You can't enter more than one word. You lost!");
-    }
-    if (myInput.slice(0, 2) !== this.letters) {
-      throw new Error(`The word does not start with ${this.letters}. You lost`);
-    }
-    if (this.usedWordsArray.includes(myInput)) {
-      throw new Error('The words are the same. You lost');
+  validateInput(myInput, user) {
+    try {
+      //eroare sa fie doar un cuvant " "
+      if (myInput.includes(' ')) {
+        throw new Error(`You can't enter more than one word. ${user} lost 💥`);
+      }
+      if (myInput.slice(0, 2) !== this.letters) {
+        throw new Error(
+          `The word does not start with \"${this.letters}\" 😅 . ${user} lost 💥`
+        );
+      }
+      if (this.usedWordsArray.includes(myInput)) {
+        throw new Error(`"${myInput}" has already been used. ${user} lost 💥`);
+      }
+    } catch (err) {
+      throw err;
     }
   }
 }

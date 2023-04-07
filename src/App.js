@@ -5,27 +5,38 @@ import Response from './Response';
 import controller from './modules/controller';
 import ChatHistory from './ChatHistory';
 import './ChatHistory.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
-  controller.initApplication();
   const [dataLength, setDataLength] = useState(0);
   const [displayError, setShowError] = useState(false);
+
+  useEffect(() => {
+    controller.initApplication(setDataLength);
+  }, []);
 
   const handleShowError = () => {
     setShowError(true);
   };
 
   function inputHandlerSubmit(value) {
-    controller.getResponseFromUser(value, setDataLength);
+    try {
+      controller.getResponseFromUser(value, setDataLength);
+    } catch (err) {
+      controller.initApplication(
+        setDataLength,
+        err.message + '. Paste a word to restart game 😁'
+      );
+      console.error(err.message);
+    }
   }
 
   return (
     <div className="App">
       <Header />
-      <button onClick={handleShowError}>Show Error</button>
-      {displayError && <ErrorButton />}
-      <ErrorButton />
+      {/* <button onClick={handleShowError}>Show Error</button>
+        {displayError && <ErrorButton />}
+        <ErrorButton /> */}
       <ChatHistory
         inputHandlerSubmit={inputHandlerSubmit}
         chatHistoryArray={controller.chatHistoryArray}
