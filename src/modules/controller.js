@@ -54,6 +54,9 @@ class Controller {
 
   getResponseFromUser(response, setDataLength) {
     try {
+      if (response.trim() === '') {
+        return;
+      }
       response = this.processResponse(response);
       this.extractMessage(response, 'user', setDataLength, 'Player');
       // send prompt to openaAI modules
@@ -161,7 +164,7 @@ class Controller {
       }
       if (myInput.slice(0, 2) !== this.letters) {
         throw new Error(
-          `The word does not start with \"${this.letters}\" 😅 . ${user} lost 💥`
+          `The "${myInput}" does not start with \"${this.letters}\" 😅 . ${user} lost 💥`
         );
       }
       if (this.usedWordsArray.includes(myInput)) {

@@ -25,8 +25,10 @@ function App() {
     } catch (err) {
       controller.initApplication(
         setDataLength,
-        err.message + '. Paste a word to restart game 😁'
+        err.message + '. Paste a word to restart game 😁',
+        setShowError
       );
+      setShowError(true);
       console.error(err.message);
     }
   }
@@ -41,6 +43,8 @@ function App() {
         inputHandlerSubmit={inputHandlerSubmit}
         chatHistoryArray={controller.chatHistoryArray}
         loading={controller.loading}
+        handleShowError={handleShowError}
+        displayError={displayError}
       ></ChatHistory>
     </div>
   );

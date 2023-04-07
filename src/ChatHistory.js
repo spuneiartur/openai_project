@@ -5,13 +5,22 @@ import './Input.css';
 import Response from './Response';
 import inputHandler from './modules/views/userInputView';
 import Loading from './Loading';
-function ChatHistory({ inputHandlerSubmit, chatHistoryArray, loading }) {
+import ErrorButton from './ErrorButton';
+
+function ChatHistory({
+  inputHandlerSubmit,
+  chatHistoryArray,
+  loading,
+  handleShowError,
+  displayError,
+}) {
   return (
     <div className="ChatHistory-body">
       {chatHistoryArray.map((obj, index) => (
         <Response response={obj} key={index}></Response>
       ))}
       {loading && <Loading />}
+      {displayError && <ErrorButton />}
       <Input inputHandlerSubmit={inputHandlerSubmit} />
     </div>
   );
