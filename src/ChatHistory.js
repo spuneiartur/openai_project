@@ -13,6 +13,8 @@ function ChatHistory({
   loading,
   handleShowError,
   displayError,
+  setShowError,
+  errorMessage,
 }) {
   return (
     <div className="ChatHistory-body">
@@ -20,7 +22,9 @@ function ChatHistory({
         <Response response={obj} key={index}></Response>
       ))}
       {loading && <Loading />}
-      {displayError && <ErrorButton />}
+      {displayError && (
+        <ErrorButton errorMessage={errorMessage} setShowError={setShowError} />
+      )}
       <Input inputHandlerSubmit={inputHandlerSubmit} />
     </div>
   );
