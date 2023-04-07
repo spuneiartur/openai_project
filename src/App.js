@@ -8,9 +8,11 @@ import './ChatHistory.css';
 import React, { useState } from 'react';
 
 function App() {
-  controller.initApplication();
+  
   const [dataLength, setDataLength] = useState(0);
   const [displayError, setShowError] = useState(false);
+  controller.initApplication(setDataLength);
+//  setDataLength(this.chatHistoryArray.length);
 
   const handleShowError = () => {
     setShowError(true);
