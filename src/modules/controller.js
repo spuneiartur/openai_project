@@ -8,13 +8,29 @@ class Controller {
   usedWordsArray = [];
   chatHistoryArray = [];
   ///////////////////////////////////////////////////
+  firstInitOfApp() {}
+  writeToLocalStorage() {
+    const messagesString = JSON.stringify(this.chatHistoryArray);
+    localStorage.setItem('messages', messagesString);
+  }
+  readFromLocalStorage() {
+    // get the messages string from local storage
+    const messagesString = localStorage.getItem('messages');
+
+    // parse the messages string into an array
+    this.chatHistoryArray = JSON.parse(messagesString);
+    if (this.chatHistoryArray === null) {
+      this.chatHistoryArray = [];
+    }
+    console.log(this.chatHistoryArray);
+  }
 
   initApplication(
     setDataLength,
     text = 'Bine ati venit la jocul nostru de fazan! Introduceti un cuvant pentru a incepe!'
   ) {
     this.usedWordsArray = [];
-    this.chatHistoryArray = [];
+    this.readFromLocalStorage();
     this.settingOpenAI_API();
     this.chatHistoryArray.push({
       type: 'ai',
@@ -32,8 +48,12 @@ class Controller {
         return;
       }
       this.chatHistoryArray.push({ type: type, text: response });
+      this.writeToLocalStorage();
       setDataLength(this.chatHistoryArray.length);
-      if (this.chatHistoryArray.length <= 2) {
+      if (
+        this.chatHistoryArray[-2].text ===
+        'Bine ati venit la jocul nostru de fazan! Introduceti un cuvant pentru a incepe!'
+      ) {
         this.letters = response.slice(0, 2);
       }
       // validate input
