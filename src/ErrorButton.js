@@ -13,11 +13,13 @@ function ErrorButton() {
     return (
         <>
           {showModal && ( 
+            <div className="overlay"> 
             <div className="modal">
               <div className="error"> 
-                <p>Oops! Something went wrong.</p>
+                <p>Something went wrong, just like the Assassin’s Creed series</p>
               </div>
               <button className="close" onClick={handleClose}>Close</button>
+            </div>
             </div>
           )}
         </>
