@@ -8,9 +8,15 @@ class Controller {
   usedWordsArray = [];
   chatHistoryArray = [];
   ///////////////////////////////////////////////////
-  initApplication() {
+
+  
+
+  initApplication(setDataLength) {
     this.settingOpenAI_API();
     this.setLetters('ar');
+    this.chatHistoryArray.push
+    ('ai', "Bine ati venit la jocul nostru de fazan! Introduceti un cuvant pentru a incepe");
+    setDataLength(this.chatHistoryArray.length);
   }
 
   extractMessage(response, type, setDataLength) {
