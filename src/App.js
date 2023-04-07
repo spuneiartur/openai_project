@@ -20,6 +20,12 @@ function App() {
     setShowError(true);
   };
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      setShowError(false);
+    }
+  };
+
   function inputHandlerSubmit(value) {
     try {
       controller.getResponseFromUser(
@@ -40,7 +46,7 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App" onKeyDown={handleKeyDown}>
       <Header />
       <ChatHistory
         inputHandlerSubmit={inputHandlerSubmit}
