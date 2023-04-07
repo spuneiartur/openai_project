@@ -10,6 +10,7 @@ import React, { useState, useEffect } from 'react';
 function App() {
   const [dataLength, setDataLength] = useState(0);
   const [displayError, setShowError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     controller.initApplication(setDataLength);
@@ -19,9 +20,20 @@ function App() {
     setShowError(true);
   };
 
+  const handleKeyDown = e => {
+    if (e.key === 'Enter') {
+      setShowError(false);
+    }
+  };
+
   function inputHandlerSubmit(value) {
     try {
-      controller.getResponseFromUser(value, setDataLength);
+      controller.getResponseFromUser(
+        value,
+        setDataLength,
+        setShowError,
+        setErrorMessage
+      );
     } catch (err) {
       controller.initApplication(
         setDataLength,
@@ -29,22 +41,21 @@ function App() {
         setShowError
       );
       setShowError(true);
-      console.error(err.message);
+      setErrorMessage(err.message);
     }
   }
 
   return (
-    <div className="App">
+    <div className="App" onKeyDown={handleKeyDown}>
       <Header />
-      {/* <button onClick={handleShowError}>Show Error</button>
-        {displayError && <ErrorButton />}
-        <ErrorButton /> */}
       <ChatHistory
         inputHandlerSubmit={inputHandlerSubmit}
         chatHistoryArray={controller.chatHistoryArray}
         loading={controller.loading}
         handleShowError={handleShowError}
         displayError={displayError}
+        setShowError={setShowError}
+        errorMessage={errorMessage}
       ></ChatHistory>
     </div>
   );

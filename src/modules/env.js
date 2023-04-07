@@ -1,3 +1,3 @@
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '';
 
 export default OPENAI_API_KEY;
