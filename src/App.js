@@ -22,7 +22,12 @@ function App() {
 
   function inputHandlerSubmit(value) {
     try {
-      controller.getResponseFromUser(value, setDataLength);
+      controller.getResponseFromUser(
+        value,
+        setDataLength,
+        setShowError,
+        setErrorMessage
+      );
     } catch (err) {
       controller.initApplication(
         setDataLength,

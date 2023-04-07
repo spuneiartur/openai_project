@@ -52,7 +52,7 @@ class Controller {
     }
   }
 
-  getResponseFromUser(response, setDataLength) {
+  getResponseFromUser(response, setDataLength, setShowError, setErrorMessage) {
     try {
       if (response.trim() === '') {
         return;
@@ -63,7 +63,12 @@ class Controller {
       this.loading = true;
       setDataLength(this.chatHistoryArray.length);
       try {
-        this.getResponseFromOpenai(response, setDataLength);
+        this.getResponseFromOpenai(
+          response,
+          setDataLength,
+          setShowError,
+          setErrorMessage
+        );
       } catch (err) {
         throw err;
       }
@@ -88,7 +93,12 @@ class Controller {
       .toLowerCase();
   }
 
-  async getResponseFromOpenai(userResponse, setDataLength) {
+  async getResponseFromOpenai(
+    userResponse,
+    setDataLength,
+    setShowError,
+    setErrorMessage
+  ) {
     try {
       const greseala = 'XXX';
       const prompt = `
@@ -123,6 +133,8 @@ class Controller {
         setDataLength,
         err.message + '. Paste a word to restart game 😁'
       );
+      setShowError(true);
+      setErrorMessage(err.message);
     } finally {
       this.loading = false;
     }

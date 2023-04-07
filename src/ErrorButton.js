@@ -5,8 +5,6 @@ function ErrorButton({
   errorMessage = 'Something went wrong, just like the Assassin’s Creed series',
   setShowError,
 }) {
-  //const [showModal, setShowModal] = useState(true);
-
   const handleClose = () => {
     setShowError(false);
   };
